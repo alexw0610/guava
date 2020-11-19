@@ -605,8 +605,9 @@ public final class Splitter {
           end--;
         }
 
-        if (omitEmptyStrings && start == end) {
-          // Don't include the (unused) separator in next split string.
+        if (omitEmptyStrings && start == end && limit > 1) {
+          //This statement hits when two separators follow each other in the input and we have not reached the limit yet.
+          //Don't include the (unused) separator in next split string.
           nextStart = offset;
           continue;
         }
