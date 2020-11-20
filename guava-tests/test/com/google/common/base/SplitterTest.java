@@ -617,31 +617,31 @@ public class SplitterTest extends TestCase {
   public void testLimitExtraSeparatorsOmitEmpty() {
     String text = "a,,,b,,c,d";
     Iterable<String> items = COMMA_SPLITTER.limit(2).omitEmptyStrings().split(text);
-    assertThat(items).containsExactly("a", "b,,c,d").inOrder();
+    assertThat(items).containsExactly("a", ",,b,,c,d").inOrder();
   }
 
   public void testLimitExtraSeparatorsOmitEmpty3() {
     String text = "a,,,b,,c,d";
     Iterable<String> items = COMMA_SPLITTER.limit(3).omitEmptyStrings().split(text);
-    assertThat(items).containsExactly("a", "b", "c,d").inOrder();
+    assertThat(items).containsExactly("a", "b", ",c,d").inOrder();
   }
 
   public void testLimitExtraSeparatorsTrim() {
     String text = ",,a,,  , b ,, c,d ";
     Iterable<String> items = COMMA_SPLITTER.limit(2).omitEmptyStrings().trimResults().split(text);
-    assertThat(items).containsExactly("a", "b ,, c,d").inOrder();
+    assertThat(items).containsExactly("a", ",  , b ,, c,d").inOrder();
   }
 
   public void testLimitExtraSeparatorsTrim3() {
     String text = ",,a,,  , b ,, c,d ";
     Iterable<String> items = COMMA_SPLITTER.limit(3).omitEmptyStrings().trimResults().split(text);
-    assertThat(items).containsExactly("a", "b", "c,d").inOrder();
+    assertThat(items).containsExactly("a", "b", ", c,d").inOrder();
   }
 
   public void testLimitExtraSeparatorsTrim1() {
     String text = ",,a,,  , b ,, c,d ";
     Iterable<String> items = COMMA_SPLITTER.limit(1).omitEmptyStrings().trimResults().split(text);
-    assertThat(items).containsExactly("a,,  , b ,, c,d").inOrder();
+    assertThat(items).containsExactly(",,a,,  , b ,, c,d").inOrder();
   }
 
   public void testLimitExtraSeparatorsTrim1NoOmit() {
@@ -659,7 +659,7 @@ public class SplitterTest extends TestCase {
   public void testLimitExtraSeparatorsTrim1EmptyOmit() {
     String text = "";
     Iterable<String> items = COMMA_SPLITTER.omitEmptyStrings().limit(1).split(text);
-    assertThat(items).isEmpty();
+    assertThat(items).containsExactly("");
   }
 
   public void testInvalidZeroLimit() {
